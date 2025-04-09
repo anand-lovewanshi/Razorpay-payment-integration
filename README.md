@@ -12,10 +12,6 @@ It allows users to make secure payments using the Razorpay Checkout system with 
 
 ---
 
-## 📸 Screenshot (Optional)
-> *(Add a screenshot here if available)*
-
----
 
 ## 🧠 About This Project
 
@@ -39,8 +35,4 @@ It simulates a real-world payment flow by integrating Razorpay’s payment gatew
 3. Backend uses Razorpay SDK to create an order with amount and currency.
 4. Razorpay Checkout opens for user to complete the payment.
 5. Payment status is shown (success or failure).
-
----
-
-## 📁 Folder Structure
 
