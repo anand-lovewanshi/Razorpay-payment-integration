@@ -8,7 +8,7 @@ It allows users to make secure payments using the Razorpay Checkout system with 
 ## 🚀 Live Demo
 
 - 🌐 Frontend: [https://razorpay-payment-anand.netlify.app](#)
-- 🛠️ Backend API: [https://razorpay-api-anand.onrender.com](#)
+
 
 ---
 
