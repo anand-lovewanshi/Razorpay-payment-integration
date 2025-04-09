@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Razorpay Test</title>
+    <style>
+      body {
+        background-image: url(bgimg.png);
+      }
+      h1 {
+        text-align: center;
+        margin-top: 100px;
+        font-size: 50px;
+        color: #f3f8f0;
+      }
+      button {
+        display: block;
+        margin: 0 auto;
+        margin-top: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: rgb(52, 187, 19);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      input {
+        display: block;
+        margin: 0 auto;
+        margin-top: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Testing Razorpay</h1>
+
+    <input
+      id="amount"
+      name="amount"
+      type="number"
+      min="1"
+      oninput="validateAmount(this)"
+    />
+    <button id="rzp-button1">Pay</button>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      function validateAmount(input) {
+        if (input.value < 1) {
+          input.value = "";
+        }
+      }
+
+      document.getElementById("rzp-button1").onclick = async function (e) {
+        let amt = document.getElementById("amount").value;
+        e.preventDefault();
+        let response = await fetch(
+          "https://razorpay-test.onrender.com/payment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Allow-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify({
+              amount: amt
+            })
+          }
+        );
+        let orderData = await response.json();
+        console.log(orderData);
+        var options = {
+          key: "rzp_test_ZkJ3ids4GaOOTU", // Enter the Key ID generated from the Dashboard
+          amount: "500", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          currency: "INR",
+          name: "Treato", //your business name
+          description: "Treato Salons",
+          order_id: orderData.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          save: 1,
+          handler: function (response) {
+            alert("Payment order  id", response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature);
+          }
+        };
+        var rzp1 = new Razorpay(options);
+
+        rzp1.open();
+      };
+    </script>
+  </body>
+</html>
